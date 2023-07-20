@@ -3800,8 +3800,6 @@ SuperNerdGroup:
 			db DREAM_EATER, THUNDER, HYPNOSIS, NIGHT_SHADE
 	db -1 ; end
 	
-SECTION "Enemy Trainer Parties 2", ROMX
-
 FisherGroup:
 	; FISHER (1)
 	db "JUSTIN@", TRAINERTYPE_STAT_EXP
@@ -4108,6 +4106,8 @@ FisherGroup:
 			dw $00ED, $00ED, $00ED, $00ED, $00ED
 			db OUTRAGE, THUNDER, EARTHQUAKE, ICE_BEAM
 	db -1 ; end
+	
+SECTION "Enemy Trainer Parties 2", ROMX
 
 SwimmerMGroup:
 	; SWIMMERM (1)
@@ -5427,6 +5427,16 @@ BikerGroup:
 	db 82, AZUMARILL
 			dw $0173, $0173, $0173, $0173, $0173
 			db HYDRO_PUMP, STRENGTH, WHIRLPOOL, ICE_BEAM
+	db -1 ; end
+	
+	; BIKER (18) - Silph Co. Delivery Center
+	db "THERON@", TRAINERTYPE_STAT_EXP | TRAINERTYPE_MOVES
+	db 82, URSARING
+			dw $0173, $0173, $0173, $0173, $0173
+			db SLEEP_TALK, REST, THRASH, EARTHQUAKE
+	db 82, WEEZING
+			dw $0173, $0173, $0173, $0173, $0173
+			db SLUDGE_BOMB, EXPLOSION, CURSE, POISON_GAS
 	db -1 ; end
 	
 	; BIKER (18) - Silph Co. Delivery Center
@@ -7739,7 +7749,7 @@ KingGroup:
 	
 GiovanniGroup:
 	; GIOVANNI (1)
-	db "???@", TRAINERTYPE_DVS | TRAINERTYPE_STAT_EXP | TRAINERTYPE_ITEM | TRAINERTYPE_MOVES
+	db "GIOVANNI@", TRAINERTYPE_DVS | TRAINERTYPE_STAT_EXP | TRAINERTYPE_ITEM | TRAINERTYPE_MOVES
 	db 84, PERSIAN
 			db $fb, PERFECT_DV ; atk|def, spd|spc
 			dw $018D, $018D, $018D, $018D, $018D

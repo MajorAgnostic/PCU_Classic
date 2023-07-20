@@ -1054,6 +1054,8 @@ LoadMapPals:
 	ld a, BANK(wBGPals1)
 	call FarCopyWRAM
 	; Day Care outdoor palettes
+	
+	; Day Care outdoor palettes by Damien
 	ld a, [wMapGroup]
 	cp GROUP_ROUTE_34
 	ret nz
