@@ -2792,8 +2792,8 @@ ThickClubBoost:
 ; it's holding a Thick Club, double it.
 	push bc
 	push de
-	ld b, MAROWAK
-	ld c, GHOST_P
+	ld b, CUBONE
+	ld c, MAROWAK
 	ld d, THICK_CLUB
 	call SpeciesItemBoost
 	pop de
@@ -3014,10 +3014,6 @@ BattleCommand_DamageCalc:
 	inc c
 
 .dont_selfdestruct
-
-; Variable-hit moves and Conversion can have a power of 0.
-	cp EFFECT_MULTI_HIT
-	jr z, .skip_zero_damage_check
 
 	cp EFFECT_CONVERSION
 	jr z, .skip_zero_damage_check

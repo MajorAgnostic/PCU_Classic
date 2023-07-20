@@ -514,20 +514,22 @@ VulpixEvosAttacks:
 	db 13, ROAR
 	db 19, CONFUSE_RAY
 	db 25, FLAME_WHEEL
-	db 31, FIRE_SPIN
+	db 31, HYPNOSIS
 	db 37, FLAMETHROWER
-	db 43, HYPNOSIS
+	db 43, FIRE_SPIN
+	db 49, DREAM_EATER
 	db 0 ; no more level-up moves
 
 NinetalesEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, EMBER
 	db 1, QUICK_ATTACK
 	db 1, CONFUSE_RAY
 	db 1, FLAME_WHEEL
+	db 1, HYPNOSIS
 	db 43, FLAMETHROWER
-	db 49, HYPNOSIS
-	db 55, SPITE
+	db 49, FIRE_SPIN
+	db 55, DREAM_EATER
+	db 62, SPITE
 	db 0 ; no more level-up moves
 
 JigglypuffEvosAttacks:
@@ -867,7 +869,7 @@ PoliwrathEvosAttacks:
 	db 0 ; no more level-up moves
 
 AbraEvosAttacks:
-	db EVOLVE_LEVEL, 26, KADABRA
+	db EVOLVE_LEVEL, 16, KADABRA
 	db 0 ; no more evolutions
 	db 1, TELEPORT
 	db 16, CONFUSION
@@ -1088,7 +1090,7 @@ RapidashEvosAttacks:
 	db 0 ; no more level-up moves
 
 SlowpokeEvosAttacks:
-	db EVOLVE_LEVEL, 34, SLOWBRO
+	db EVOLVE_LEVEL, 37, SLOWBRO
 	db EVOLVE_ITEM, WATER_STONE, SLOWKING
 	db 0 ; no more evolutions
 	db 1, TACKLE
@@ -1330,7 +1332,7 @@ OnixEvosAttacks:
 	db 0 ; no more level-up moves
 
 DrowzeeEvosAttacks:
-	db EVOLVE_LEVEL, 31, HYPNO
+	db EVOLVE_LEVEL, 26, HYPNO
 	db 0 ; no more evolutions
 	db 1, POUND
 	db 1, HYPNOSIS
@@ -1885,7 +1887,7 @@ JolteonEvosAttacks:
 	db 36, SPARK
 	db 42, PIN_MISSILE
 	db 47, AGILITY
-	db 52, THUNDER
+	db 52, THUNDER_WAVE
 	db 0 ; no more level-up moves
 
 FlareonEvosAttacks:
@@ -2121,7 +2123,7 @@ MewEvosAttacks:
 	db 0 ; no more level-up moves
 
 ChikoritaEvosAttacks:
-	db EVOLVE_LEVEL, 14, BAYLEEF
+	db EVOLVE_LEVEL, 16, BAYLEEF
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, GROWL
@@ -2138,7 +2140,7 @@ ChikoritaEvosAttacks:
 	db 0 ; no more level-up moves
 
 BayleefEvosAttacks:
-	db EVOLVE_LEVEL, 36, MEGANIUM
+	db EVOLVE_LEVEL, 32, MEGANIUM
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, GROWL
@@ -2172,7 +2174,7 @@ MeganiumEvosAttacks:
 	db 0 ; no more level-up moves
 
 CyndaquilEvosAttacks:
-	db EVOLVE_LEVEL, 16, QUILAVA
+	db EVOLVE_LEVEL, 14, QUILAVA
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, LEER
@@ -2185,7 +2187,7 @@ CyndaquilEvosAttacks:
 	db 0 ; no more level-up moves
 
 QuilavaEvosAttacks:
-	db EVOLVE_LEVEL, 32, TYPHLOSION
+	db EVOLVE_LEVEL, 36, TYPHLOSION
 	db 0 ; no more evolutions
 	db 1, TACKLE
 	db 1, LEER
@@ -2693,7 +2695,7 @@ YanmaEvosAttacks:
 	db 0 ; no more level-up moves
 
 WooperEvosAttacks:
-	db EVOLVE_LEVEL, 24, QUAGSIRE
+	db EVOLVE_LEVEL, 20, QUAGSIRE
 	db 0 ; no more evolutions
 	db 1, TAIL_WHIP
 	db 1, WATER_GUN
@@ -3075,7 +3077,7 @@ CorsolaEvosAttacks:
 	db 31, RECOVER
 	db 37, MIRROR_COAT
 	db 43, ANCIENTPOWER
-	db 51, BLIZZARD
+	db 51, HYDRO_PUMP
 	db 0 ; no more level-up moves
 
 RemoraidEvosAttacks:
@@ -3141,7 +3143,7 @@ SkarmoryEvosAttacks:
 	db 0 ; no more level-up moves
 
 HoundourEvosAttacks:
-	db EVOLVE_LEVEL, 42, HOUNDOOM
+	db EVOLVE_LEVEL, 24, HOUNDOOM
 	db 0 ; no more evolutions
 	db 1, LEER
 	db 1, EMBER
@@ -3202,7 +3204,7 @@ DonphanEvosAttacks:
 	db 17, DEFENSE_CURL
 	db 24, ROLLOUT
 	db 25, HORN_ATTACK
-	db 31, ENDURE
+	db 33, MAGNITUDE
 	db 41, RAPID_SPIN
 	db 49, EARTHQUAKE
 	db 57, BODY_SLAM
@@ -3483,15 +3485,8 @@ MetagrossEvosAttacks:
 	
 GhostEvosAttacks:
 	db 0 ; no more evolutions
-	db 1, GROWL
-	db 5, LEER
-	db 9, BONE_CLUB
-	db 13, RAGE
-	db 17, SPITE
-	db 21, FALSE_SWIPE
-	db 25, HEADBUTT
-	db 32, BONEMERANG
-	db 39, FIRE_SPIN
-	db 46, ROCK_SLIDE
-	db 53, BONE_RUSH
+	db 1, FIRE_BLAST
+	db 1, OUTRAGE
+	db 1, ROCK_SLIDE
+	db 1, SUBMISSION
 	db 0 ; no more level-up moves

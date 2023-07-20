@@ -73,8 +73,8 @@ BattleTowerMons:
 	db 0, 0, 0 ; Pokerus, Caught data
 	db 50 ; Level
 	db 0, 0 ; Status
-	bigdw 113 ; HP
-	bigdw 113 ; Max HP
+	bigdw 104 ; HP
+	bigdw 104 ; Max HP
 	bigdw 38 ; Atk
 	bigdw 258 ; Def
 	bigdw 33 ; Spd
@@ -312,8 +312,8 @@ BattleTowerMons:
 	bigdw 78 ; Atk
 	bigdw 98 ; Def
 	bigdw 168 ; Spd
-	bigdw 118 ; SAtk
-	bigdw 118 ; SDef
+	bigdw 108 ; SAtk
+	bigdw 108 ; SDef
 	db "MARUMAIN@@@"
 
 	db AERODACTYL
@@ -574,8 +574,8 @@ BattleTowerMons:
 	bigdw 403 ; Max HP
 	bigdw 248 ; Atk
 	bigdw 328 ; Def
-	bigdw 288 ; Spd
-	bigdw 298 ; SAtk
+	bigdw 278 ; Spd
+	bigdw 288 ; SAtk
 	bigdw 328 ; SDef
 	db "SUICUNE@@@@"
 
@@ -680,7 +680,7 @@ BattleTowerMons:
 	bigdw 228 ; Def
 	bigdw 158 ; Spd
 	bigdw 228 ; SAtk
-	bigdw 228 ; SDef
+	bigdw 318 ; SDef
 	db "KABIGON@@@@"
 
 	db TYRANITAR
@@ -1066,7 +1066,7 @@ BattleTowerMons:
 	db 0, 0 ; Status
 	bigdw 365 ; HP
 	bigdw 365 ; Max HP
-	bigdw 270 ; Atk
+	bigdw 250 ; Atk
 	bigdw 270 ; Def
 	bigdw 210 ; Spd
 	bigdw 300 ; SAtk
@@ -1095,6 +1095,6 @@ BattleTowerMons:
 	bigdw 206 ; Atk
 	bigdw 206 ; Def
 	bigdw 224 ; Spd
-	bigdw 270 ; SAtk
+	bigdw 242 ; SAtk
 	bigdw 242 ; SDef
 	db "RANTA-N@@@@"

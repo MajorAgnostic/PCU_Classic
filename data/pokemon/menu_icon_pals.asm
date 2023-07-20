@@ -10,7 +10,7 @@ MonMenuIconPals:
 	iconpal TEAL, GREEN ; VENUSAUR
 	iconpal RED, BROWN ; CHARMANDER
 	iconpal RED, BROWN ; CHARMELEON
-	iconpal RED, GRAY ; CHARIZARD
+	iconpal RED, PURPLE ; CHARIZARD
 	iconpal BLUE, TEAL ; SQUIRTLE
 	iconpal BLUE, TEAL ; WARTORTLE
 	iconpal BLUE, GRAY ; BLASTOISE
@@ -56,8 +56,8 @@ MonMenuIconPals:
 	iconpal PURPLE, BLUE ; VENOMOTH
 	iconpal BROWN, BLUE ; DIGLETT
 	iconpal RED, BLUE ; DUGTRIO
-	iconpal PURPLE, BROWN ; MEOWTH
-	iconpal PURPLE, BROWN ; PERSIAN
+	iconpal BROWN, PURPLE ; MEOWTH
+	iconpal BROWN, PURPLE ; PERSIAN
 	iconpal BROWN, BLUE ; PSYDUCK
 	iconpal BLUE, BLUE ; GOLDUCK
 	iconpal BROWN, GREEN ; MANKEY
@@ -134,7 +134,7 @@ MonMenuIconPals:
 	iconpal BROWN, GRAY ; PINSIR
 	iconpal BROWN, BROWN ; TAUROS
 	iconpal RED, BROWN ; MAGIKARP
-	iconpal RED, GRAY ; GYARADOS
+	iconpal BLUE, RED ; GYARADOS
 	iconpal BLUE, PURPLE ; LAPRAS
 	iconpal PURPLE, BLUE ; DITTO
 	iconpal BROWN, GRAY ; EEVEE
@@ -226,7 +226,7 @@ MonMenuIconPals:
 	iconpal RED, BLUE ; MAGCARGO
 	iconpal BROWN, BLUE ; SWINUB
 	iconpal BROWN, BROWN ; PILOSWINE
-	iconpal TEAL, PINK ; CORSOLA
+	iconpal PINK, TEAL ; CORSOLA
 	iconpal BLUE, GRAY ; REMORAID
 	iconpal RED, BROWN ; OCTILLERY
 	iconpal RED, PURPLE ; DELIBIRD
@@ -257,5 +257,5 @@ MonMenuIconPals:
 	iconpal RED, PINK ; HO_OH
 	iconpal GREEN, PINK ; CELEBI
 	iconpal BLUE, BLUE ; METAGROSS
-	iconpal PURPLE, PURPLE ; GHOST
+	iconpal GRAY, GRAY ; MEGA CHARIZARD
 	iconpal RED, BLUE ; EGG

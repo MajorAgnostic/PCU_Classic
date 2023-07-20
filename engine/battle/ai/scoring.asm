@@ -140,7 +140,6 @@ AI_Setup:
 	inc [hl]
 	jr .checkmove
 
-
 AI_Types:
 ; Dismiss any move that the player is immune to.
 ; Encourage super-effective moves.
@@ -322,10 +321,9 @@ AI_Smart_EffectHandlers:
 	dbw EFFECT_TOXIC,            AI_Smart_Toxic
 	dbw EFFECT_LIGHT_SCREEN,     AI_Smart_LightScreen
 	dbw EFFECT_OHKO,             AI_Smart_Ohko
-	dbw EFFECT_RAZOR_WIND,       AI_Smart_RazorWind
+	dbw EFFECT_SKY_ATTACK,       AI_Smart_RazorWind ; Ultimate
 	dbw EFFECT_SUPER_FANG,       AI_Smart_SuperFang
 	dbw EFFECT_TRAP_TARGET,      AI_Smart_TrapTarget
-	dbw EFFECT_UNUSED_2B,        AI_Smart_Unused2B
 	dbw EFFECT_CONFUSE,          AI_Smart_Confuse
 	dbw EFFECT_SP_DEF_UP_2,      AI_Smart_SpDefenseUp2
 	dbw EFFECT_REFLECT,          AI_Smart_Reflect
@@ -350,7 +348,6 @@ AI_Smart_EffectHandlers:
 	dbw EFFECT_SPITE,            AI_Smart_Spite
 	dbw EFFECT_HEAL_BELL,        AI_Smart_HealBell
 	dbw EFFECT_PRIORITY_HIT,     AI_Smart_PriorityHit
-	dbw EFFECT_THIEF,            AI_Smart_Thief
 	dbw EFFECT_MEAN_LOOK,        AI_Smart_MeanLook
 	dbw EFFECT_NIGHTMARE,        AI_Smart_Nightmare
 	dbw EFFECT_FLAME_WHEEL,      AI_Smart_FlameWheel
@@ -376,7 +373,6 @@ AI_Smart_EffectHandlers:
 	dbw EFFECT_RAIN_DANCE,       AI_Smart_RainDance
 	dbw EFFECT_SUNNY_DAY,        AI_Smart_SunnyDay
 	dbw EFFECT_BELLY_DRUM,       AI_Smart_BellyDrum
-	dbw EFFECT_PSYCH_UP,         AI_Smart_PsychUp
 	dbw EFFECT_MIRROR_COAT,      AI_Smart_MirrorCoat
 	dbw EFFECT_SKULL_BASH,       AI_Smart_SkullBash
 	dbw EFFECT_TWISTER,          AI_Smart_Twister
@@ -392,7 +388,7 @@ AI_Smart_EffectHandlers:
 
 AI_Smart_Sleep:
 ; Greatly encourage sleep inducing moves if the enemy has either Dream Eater or Nightmare.
-; 50% chance to greatly encourage sleep inducing moves otherwise.
+; 50% chance to greatly encourage sleep-inducing moves otherwise.
 
 	ld b, EFFECT_DREAM_EATER
 	call AIHasMoveEffect
@@ -460,7 +456,7 @@ AI_Smart_LockOn:
 
 .asm_38834
 	ld a, [wPlayerEvaLevel]
-	cp BASE_STAT_LEVEL + 3
+	cp BASE_STAT_LEVEL + 2
 	jr nc, .asm_3887a
 	cp BASE_STAT_LEVEL + 1
 	jr nc, .asm_38875
@@ -584,13 +580,12 @@ AI_Smart_Selfdestruct:
 	ret
 
 AI_Smart_DreamEater:
-; 90% chance to greatly encourage this move.
+; 70% chance to greatly encourage this move.
 ; The AI_Basic layer will make sure that
 ; Dream Eater is only used against sleeping targets.
 	call Random
-	cp 10 percent
+	cp 30 percent
 	ret c
-	dec [hl]
 	dec [hl]
 	dec [hl]
 	ret
@@ -610,9 +605,9 @@ AI_Smart_EvasionUp:
 	bit SUBSTATUS_TOXIC, a
 	jr nz, .encourage
 
-; ...70% chance to greatly encourage this move if player is not badly poisoned.
+; ...60% chance to greatly encourage this move if player is not badly poisoned.
 	call Random
-	cp 70 percent
+	cp 60 percent
 	jr nc, .asm_38911
 
 .encourage
@@ -636,20 +631,20 @@ AI_Smart_EvasionUp:
 	jr nc, .asm_3890a
 
 ; If enemy's HP is above 50% but not full, 20% chance to greatly encourage this move.
-	call AI_80_20
+	call AI_50_50
 	jr c, .encourage
 	jr .asm_38911
 
 .asm_3890a
 ; ...50% chance to greatly discourage this move.
-	call AI_50_50
+	call AI_80_20
 	jr c, .asm_38911
 
 .asm_3890f
 	inc [hl]
 	inc [hl]
 
-; 30% chance to end up here if enemy's HP is full and player is not badly poisoned.
+; 30% chance to end up here if enemy's HP is full and player is not badly poisoned. - odds below now N/A
 ; 77% chance to end up here if enemy's HP is above 50% but not full.
 ; 96% chance to end up here if enemy's HP is between 25% and 50%.
 ; 100% chance to end up here if enemy's HP is below 25%.
@@ -721,7 +716,6 @@ AI_Smart_AlwaysHit:
 	call AI_80_20
 	ret c
 
-	dec [hl]
 	dec [hl]
 	ret
 
@@ -871,7 +865,7 @@ AI_Smart_AccuracyDown:
 	ret
 
 AI_Smart_ResetStats:
-; 85% chance to encourage this move if any of enemy's stat levels is lower than -2.
+; 85% chance to encourage this move if any of enemy's stat levels is lower than -1. (Ultimate)
 	push hl
 	ld hl, wEnemyAtkLevel
 	ld c, NUM_LEVEL_STATS
@@ -879,11 +873,11 @@ AI_Smart_ResetStats:
 	dec c
 	jr z, .enemystatsdone
 	ld a, [hli]
-	cp BASE_STAT_LEVEL - 2
+	cp BASE_STAT_LEVEL - 1
 	jr c, .encourage
 	jr .enemystatsloop
 
-; 85% chance to encourage this move if any of player's stat levels is higher than +2.
+; 85% chance to encourage this move if any of player's stat levels is higher than +1.
 .enemystatsdone
 	ld hl, wPlayerAtkLevel
 	ld c, NUM_LEVEL_STATS
@@ -891,7 +885,7 @@ AI_Smart_ResetStats:
 	dec c
 	jr z, .discourage
 	ld a, [hli]
-	cp BASE_STAT_LEVEL + 3
+	cp BASE_STAT_LEVEL + 2
 	jr c, .playerstatsloop
 
 .encourage
@@ -903,8 +897,8 @@ AI_Smart_ResetStats:
 	ret
 
 ; Discourage this move if neither:
-; Any of enemy's stat levels is	lower than -2.
-; Any of player's stat levels is higher than +2.
+; Any of enemy's stat levels is	lower than -1.
+; Any of player's stat levels is higher than +1.
 .discourage
 	pop hl
 	inc [hl]
@@ -950,6 +944,7 @@ AI_Smart_Moonlight:
 	call AICheckEnemyHalfHP
 	ret nc
 	inc [hl]
+	inc [hl]
 	ret
 
 .encourage
@@ -982,15 +977,9 @@ AI_Smart_Reflect:
 	ret
 
 AI_Smart_Ohko:
-; Dismiss this move if player's level is higher than enemy's level.
-; Else, discourage this move is player's HP is below 50%.
+; Discourage this move if player's HP is below 50%.
 ; Else, encourage move if Evasion is lowered - added in Ultimate
 
-	ld a, [wBattleMonLevel]
-	ld b, a
-	ld a, [wEnemyMonLevel]
-	cp b
-	jp c, AIDiscourageMove
 	call AICheckPlayerHalfHP
 	jr nc, .discourage
 	ld a, [wPlayerEvaLevel]
@@ -1047,7 +1036,7 @@ AI_Smart_TrapTarget:
 	ret
 
 AI_Smart_RazorWind:
-AI_Smart_Unused2B:
+AI_Smart_SkullBash:
 	ld a, [wEnemySubStatus1]
 	bit SUBSTATUS_PERISH, a
 	jr z, .asm_38aaa
@@ -1126,8 +1115,8 @@ AI_Smart_SpDefenseUp2:
 	jr nc, .discourage
 
 ; 80% chance to greatly encourage this move if
-; enemy's Special Defense level is lower than +2, and the player is of a special type.
-	cp BASE_STAT_LEVEL + 2
+; enemy's Special Defense level is lower than +1, and the player is of a special type.
+	cp BASE_STAT_LEVEL + 1
 	ret nc
 
 	ld a, [wBattleMonType1]
@@ -1141,10 +1130,10 @@ AI_Smart_SpDefenseUp2:
 	call AI_80_20
 	ret c
 	dec [hl]
-	dec [hl]
 	ret
 
 .discourage
+	inc [hl]
 	inc [hl]
 	ret
 
@@ -1576,7 +1565,6 @@ AI_Smart_Spite:
 
 AI_Smart_DestinyBond:
 AI_Smart_Reversal:
-AI_Smart_SkullBash:
 ; Discourage this move if enemy's HP is above 25%.
 
 	call AICheckEnemyQuarterHP
@@ -1670,14 +1658,6 @@ AI_Smart_PriorityHit:
 	dec [hl]
 	dec [hl]
 	dec [hl]
-	ret
-
-AI_Smart_Thief:
-; 80% chance to discourage this move
-
-	call AI_80_20
-	ret c
-	inc [hl]
 	ret
 
 AI_Smart_Conversion2:
@@ -1848,7 +1828,7 @@ AI_Smart_Curse:
 	jr nc, .asm_38e93
 
 	ld a, [wEnemyAtkLevel]
-	cp BASE_STAT_LEVEL + 4
+	cp BASE_STAT_LEVEL + 3
 	jr nc, .asm_38e93
 	cp BASE_STAT_LEVEL + 2
 	ret nc
@@ -1974,10 +1954,10 @@ AI_Smart_Protect:
 
 AI_Smart_Foresight:
 	ld a, [wEnemyAccLevel]
-	cp BASE_STAT_LEVEL - 2
+	cp BASE_STAT_LEVEL - 1
 	jr c, .asm_38f41
 	ld a, [wPlayerEvaLevel]
-	cp BASE_STAT_LEVEL + 3
+	cp BASE_STAT_LEVEL + 2
 	jr nc, .asm_38f41
 
 	ld a, [wBattleMonType1]
@@ -2312,14 +2292,14 @@ AI_Smart_HiddenPower:
 	callfar BattleCheckTypeMatchup
 	pop hl
 
-; Discourage Hidden Power if not very effective, encourage otherwise.
+; Discourage Hidden Power if not very effective, encourage (no longer encouraged in PCU) otherwise.
 	ld a, [wTypeMatchup]
 	cp EFFECTIVE
 	ret z
 	jr c, .bad
 
 ;good
-	dec [hl]
+	
 	ret
 
 .bad
@@ -2439,63 +2419,6 @@ AI_Smart_BellyDrum:
 	ld a, [hl]
 	add 5
 	ld [hl], a
-	ret
-
-AI_Smart_PsychUp:
-	push hl
-	ld hl, wEnemyAtkLevel
-	ld b, $8
-	ld c, 100
-
-; Calculate the sum of all enemy's stat level modifiers. Add 100 first to prevent underflow.
-; Put the result in c. c will range between 58 and 142.
-.asm_3915a
-	ld a, [hli]
-	sub $7
-	add c
-	ld c, a
-	dec b
-	jr nz, .asm_3915a
-
-; Calculate the sum of all player's stat level modifiers. Add 100 first to prevent underflow.
-; Put the result in d. d will range between 58 and 142.
-	ld hl, wPlayerAtkLevel
-	ld b, $8
-	ld d, 100
-
-.asm_39169
-	ld a, [hli]
-	sub $7
-	add d
-	ld d, a
-	dec b
-	jr nz, .asm_39169
-
-; Greatly discourage this move if enemy's stat levels are higher than player's (if c>=d).
-	ld a, c
-	sub d
-	pop hl
-	jr nc, .asm_39188
-
-; Else, 80% chance to encourage this move unless player's accuracy level is lower than -1...
-	ld a, [wPlayerAccLevel]
-	cp BASE_STAT_LEVEL - 1
-	ret c
-
-; ...or enemy's evasion level is higher than +0.
-	ld a, [wEnemyEvaLevel]
-	cp BASE_STAT_LEVEL + 1
-	ret nc
-
-	call AI_80_20
-	ret c
-
-	dec [hl]
-	ret
-
-.asm_39188
-	inc [hl]
-	inc [hl]
 	ret
 
 AI_Smart_MirrorCoat:
@@ -3032,12 +2955,44 @@ AIDamageCalc:
 	ld a, 1
 	ldh [hBattleTurn], a
 	ld a, [wEnemyMoveStruct + MOVE_EFFECT]
+	cp EFFECT_MULTI_HIT
+    jr z, .multihit
+    cp EFFECT_DOUBLE_HIT
+    jr z, .doublehit
+	cp EFFECT_TRIPLE_KICK
+    jr z, .triplekick
+    cp EFFECT_MAGNITUDE
+    jr z, .magnitude
+	
 	ld de, 1
 	ld hl, ConstantDamageEffects
 	call IsInArray
 	jr nc, .notconstant
 	callfar BattleCommand_ConstantDamage
 	ret
+	
+.doublehit
+    ; Multiply base power by 2
+    ld b, 2
+	jr .multihit_boost
+.triplekick
+.multihit
+    ld b, 3
+.multihit_boost
+    ld a, [wEnemyMoveStruct + MOVE_POWER]
+    ld c, a
+.multihit_loop
+    dec b
+    jr z, .notconstant
+    add c
+    ld [wEnemyMoveStruct + MOVE_POWER], a
+    jr .multihit_loop
+	
+.magnitude
+    ; Pretend that the base power is 70
+    ld a, 70
+    ld [wEnemyMoveStruct + MOVE_POWER], a
+    ; fallthrough
 
 .notconstant
 	callfar EnemyAttackDamage
@@ -3279,7 +3234,6 @@ endr
 INCLUDE "data/battle/ai/risky_effects.asm"
 
 
-AI_None:
 	ret
 
 AIDiscourageMove:
@@ -3294,7 +3248,8 @@ AIGetEnemyMove:
 	push hl
 	push de
 	push bc
-	ld hl, (Moves + MOVE_POWER) - MOVE_LENGTH
+	dec a
+	ld hl, Moves
 	ld bc, MOVE_LENGTH
 	call AddNTimes
 

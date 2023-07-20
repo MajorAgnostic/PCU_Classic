@@ -23,17 +23,7 @@ _TitleScreen:
 
 ; Decompress running Suicune gfx
 ; Ultimate checks for 2nd title screen added	
-	ld a, BANK(sNumDailyMysteryGiftPartnerIDs)
-	call OpenSRAM
-	ld a, [sNumDailyMysteryGiftPartnerIDs]
-	cp -1
-	call CloseSRAM
-	jr z, .ogtitle
-	ld hl, TitleCelebiGFX
-	jr .celebicontinue
-.ogtitle
 	ld hl, TitleSuicuneGFX
-.celebicontinue
 	ld de, vTiles1
 	call Decompress
 
@@ -143,28 +133,12 @@ _TitleScreen:
 	ld a, BANK(wBGPals1)
 	ldh [rSVBK], a
 	
-	ld a, BANK(sNumDailyMysteryGiftPartnerIDs)
-	call OpenSRAM
-	ld a, [sNumDailyMysteryGiftPartnerIDs]
-	cp -1
-	call CloseSRAM
-	jr z, .ogpals
-	ld hl, TitleScreenPalettes2
-	ld de, wBGPals1
-	ld bc, 16 palettes
-	call CopyBytes
-
-	ld hl, TitleScreenPalettes2
-	jr .pals2continue
-; Update palette colors
-.ogpals:
 	ld hl, TitleScreenPalettes
 	ld de, wBGPals1
 	ld bc, 16 palettes
 	call CopyBytes
 
 	ld hl, TitleScreenPalettes
-.pals2continue:
 	ld de, wBGPals2
 	ld bc, 16 palettes
 	call CopyBytes
@@ -418,9 +392,6 @@ endr
 TitleSuicuneGFX:
 INCBIN "gfx/title/suicune.2bpp.lz"
 
-TitleCelebiGFX:
-INCBIN "gfx/title/celebi.2bpp.lz"
-
 TitleLogoGFX:
 INCBIN "gfx/title/logo.2bpp.lz"
 
@@ -429,6 +400,3 @@ INCBIN "gfx/title/crystal.2bpp.lz"
 
 TitleScreenPalettes:
 INCLUDE "gfx/title/title.pal"
-
-TitleScreenPalettes2:
-INCLUDE "gfx/title/celebi_title.pal"
